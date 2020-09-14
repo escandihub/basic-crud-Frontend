@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import home from "@/components/home";
+// import home from "@/components/home";
 import notification from "@/components/notification";
 export default {
   components: {
-    home,
+    // home,
     notification,
   },
 };

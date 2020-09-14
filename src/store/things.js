@@ -21,10 +21,9 @@ export default {
   },
 
   actions: {
-    FETCH_THINGS({ commit }) {
-      getThings().then(res => {
-        console.log(res);
-        commit('GET_THINGS', res.data)
+    FETCH_THINGS({ commit }, id_party) {
+      getThings(id_party).then(res => {
+        commit('GET_THINGS', res.data.data)
       }).catch(err => {
         console.log(err);
       })
