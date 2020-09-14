@@ -7,7 +7,7 @@
 
         <article class="panel is-link">
           <p class="panel-heading">
-            {{ fiesta.name }}
+            Nombre de la Fiesta: {{ fiesta.name }}
             <button class="delete position" aria-label="close" @click="cerrarTio"></button>
           </p>
 
@@ -80,7 +80,7 @@ export default {
         document.getElementById("activarCosas").className = "modal";
       } else {
         // aquí vamos a despachar del get de las cosas de la fiesta
-        this.$store.dispatch("FETCH_THINGS")
+        this.$store.dispatch("FETCH_THINGS", this.fiesta.id)
         document.getElementById("activarCosas").className = "modal is-active";
       }
     },
