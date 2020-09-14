@@ -1,4 +1,4 @@
-import { getThings } from '@/services/cosas';
+import { getThings, addNewThing } from '@/services/cosas';
 
 export default { 
   state: {
@@ -30,6 +30,16 @@ export default {
     },
     UPDATE_THINGS({commit}, data){
       commit('updateCosas', data)
+    },
+
+    NEW_THING({commit},data, id){
+      return new Promise((Response, reject) => {
+        addNewThing(data, id).then(res => {
+          Response(res)
+        }).catch(err => {
+          reject(err)
+        })
+      })
     }
   }
 }

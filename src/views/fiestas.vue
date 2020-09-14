@@ -95,7 +95,6 @@ export default {
     },
 
     lista(f){
-      console.log('i suppost to display list');
       this.propFiesta = f
       this.verModalThings = true
     }

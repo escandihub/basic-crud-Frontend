@@ -13,3 +13,19 @@ export function getThings(id_fiesta) {
     })
   })
 }
+
+export function addNewThing(thing, id){
+  return new Promise((response, reject) => {
+    base().post('/things', thing
+    // {
+    //   params: {
+    //     idParty: id
+    //   }
+    // }
+    ).then(res => {
+      response(res)
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}

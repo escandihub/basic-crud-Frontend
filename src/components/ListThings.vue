@@ -29,7 +29,7 @@
               <input class="input is-primary" type="number" placeholder="2" v-model="thing.amount"/>
             </div>
             <div class="column">
-              <button class="button is-primary" @click="agregar(thing)">
+              <button class="button is-primary" @click="agregar(thing, fiesta.id)">
                 <fa-icon icon="plus"></fa-icon>
               </button>
             </div>
@@ -86,10 +86,11 @@ export default {
     },
   },
   methods: {
-    agregar(thing) {
-      thing.id = 3
-      this.thing = {}
+    agregar(thing, id) {
+      thing.party_id = this.fiesta.id
       this.$store.dispatch('UPDATE_THINGS', thing)
+      this.$store.dispatch('NEW_THING', thing)
+      this.thing = {}
     },
     cerrarTio() {
       this.$emit("closeThings", false);
