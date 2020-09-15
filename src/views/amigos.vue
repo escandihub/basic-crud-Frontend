@@ -1,25 +1,31 @@
 <template>
-  <div class="columns mt-2">
-    <div class="columns is-centered">
-      <div class="column is-narrow">
-        <table class="table">
-          <thead>
-            <tr>
-              <th><abbr title="Position">Nombre</abbr></th>
-              <th>Email</th>
-              <th><abbr title="Played">Mood</abbr></th>
-              <th><abbr title="Won">Phone</abbr></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="amigo in amigos" :key="amigo.id">
-              <th> {{ amigo.name }}</th>
-              <th> {{ amigo.email }}</th>
-              <th> {{ amigo.mood }}</th>
-              <th> {{ amigo.phone }}</th>
-            </tr>
-          </tbody>
-        </table>
+  <div id="size">
+    <div class="columns is-center">
+      <div class="column">
+        Nombre
+      </div>
+      <div class="column">
+        Email
+      </div>
+      <div class="column">
+        Mood
+      </div>
+      <div class="column">
+        Phone
+      </div>
+    </div>
+    <div class="columns is-center" v-for="amigo in amigos" :key="amigo.id">
+      <div class="column">
+        {{ amigo.name }}
+      </div>
+      <div class="column">
+        {{ amigo.email }}
+      </div>
+      <div class="column">
+        {{ amigo.mood }}
+      </div>
+      <div class="column">
+        {{ amigo.phone }}
       </div>
     </div>
   </div>
@@ -47,6 +53,7 @@ export default {
   justify-content: center;
 }
 #size {
+  margin: 10px auto;
   width: 100%;
 }
 @media screen and (min-width: 960px) {
