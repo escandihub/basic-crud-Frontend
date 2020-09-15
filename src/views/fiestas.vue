@@ -31,23 +31,24 @@
     <div v-for="fiesta in partys" :key="fiesta.id" class="ml-3 mr-4">
       <div class="columns is-mobile">
         <a class="column is-mobile" @click="editFiesta(fiesta)">
-          <span class="panel-icon">
-            <fa-icon icon="home" />
-            <i class="fas fa-book" aria-hidden="true"></i>
-          </span>
-          <b>
-            <h1>
-
-              {{ fiesta.name }}
-            </h1>
-          </b>
-          <br>
-          {{fiesta.objective}}  - {{fiesta.date}}
-          <br>
-          <small>Maximo de invidatos: {{fiesta.number_guests}}</small>
+          <article class="message is-small is-primary">
+            <div class="message-header">
+              <span class="panel-icon">
+                <fa-icon icon="home" /><i class="fas fa-book" aria-hidden="true"></i>
+              </span>
+              <p>{{ fiesta.name }}</p>
+              <button class="delete is-small" aria-label="delete"></button>
+            </div>
+            <div class="message-body">
+              {{fiesta.objective}}  - {{fiesta.date}}
+              <br>
+              <small>Maximo de invidatos: {{fiesta.number_guests}}</small>
+            </div>
+            <hr>
+          </article>
         </a>
         <div class="column is-mobile">
-          <article class="message is-small is-primary">
+          <article class="message is-small is-secondary">
             <div class="message-header">
               <p>We need ...</p>
               <button class="delete is-small" aria-label="delete"></button>
