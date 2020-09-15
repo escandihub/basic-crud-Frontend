@@ -20,7 +20,7 @@
         <div class="level level-left">
           <div class="level-item">
             <button class="button is-primary is-light" @click="mostrar = true">
-              <p class="mr-3">nuevo</p>
+              <p class="mr-3">Nueva Fiesta</p>
               <fa-icon icon="plus" />
             </button>
           </div>
@@ -35,10 +35,19 @@
             <fa-icon icon="home" />
             <i class="fas fa-book" aria-hidden="true"></i>
           </span>
-          {{ fiesta.name }}
+          <b>
+            <h1>
+
+              {{ fiesta.name }}
+            </h1>
+          </b>
+          <br>
+          {{fiesta.objective}}  - {{fiesta.date}}
+          <br>
+          <small>Maximo de invidatos: {{fiesta.number_guests}}</small>
         </a>
         <div class="column is-mobile">
-          <article class="message is-small">
+          <article class="message is-small is-primary">
             <div class="message-header">
               <p>We need ...</p>
               <button class="delete is-small" aria-label="delete"></button>

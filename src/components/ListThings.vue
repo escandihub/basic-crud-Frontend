@@ -11,8 +11,15 @@
             <button class="delete position" aria-label="close" @click="cerrarTio"></button>
           </p>
 
-          <div class="panel-block columns ml-1">
-            <div column>
+         
+          <a class="panel-block is-active" v-for="item in cosas" :key="item.id">
+            <span class="panel-icon">
+              <i class="fas fa-book" aria-hidden="true"></i>
+            </span>
+            {{ item.name }} - {{ item.amount }}
+          </a>
+           <div class="panel-block columns my-0">
+            <div class="column">
               <p class="control has-icons-left">
                 <input
                   class="input is-primary"
@@ -26,20 +33,17 @@
               </p>
             </div>
             <div class="column">
-              <input class="input is-primary" type="number" placeholder="2" v-model="thing.amount"/>
+              <p class="control">
+                <input class="input is-primary" type="number" placeholder="2" v-model="thing.amount"/>
+              </p>
             </div>
             <div class="column">
               <button class="button is-primary" @click="agregar(thing, fiesta.id)">
+                <p class="px-3">Agregar</p>
                 <fa-icon icon="plus"></fa-icon>
               </button>
             </div>
           </div>
-          <a class="panel-block is-active" v-for="item in cosas" :key="item.id">
-            <span class="panel-icon">
-              <i class="fas fa-book" aria-hidden="true"></i>
-            </span>
-            {{ item.name }} - {{ item.amount }}
-          </a>
           <!-- <a class="panel-block">
               <span class="panel-icon">
                 <i class="fas fa-book" aria-hidden="true"></i>
