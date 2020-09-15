@@ -1,6 +1,6 @@
 <template>
   <div id="size">
-    <div class="columns is-center">
+    <div class="columns is-center is-desktop head">
       <div class="column">
         Nombre
       </div>
@@ -14,7 +14,7 @@
         Phone
       </div>
     </div>
-    <div class="columns is-center" v-for="amigo in amigos" :key="amigo.id">
+    <div class="columns is-center is-desktop" v-for="amigo in amigos" :key="amigo.id">
       <div class="column">
         {{ amigo.name }}
       </div>
@@ -27,6 +27,7 @@
       <div class="column">
         {{ amigo.phone }}
       </div>
+      <p class="divider">________________________________________________________</p>
     </div>
   </div>
 </template>
@@ -52,13 +53,36 @@ export default {
   /* display: flex; */
   justify-content: center;
 }
-#size {
-  margin: 10px auto;
-  width: 100%;
+.head{
+  display: none;
 }
+/* mobile first*/
+#size {
+  padding: 4%;
+  width: 92%;
+}
+.column:nth-child(odd){
+  background-color: whitesmoke;
+}
+.divider{
+  display: block;
+  color: purple !important;
+  overflow: hidden;
+}
+/* big screen */
 @media screen and (min-width: 960px) {
   #size {
-    width: 70%;
+    padding: 1%;
+    width: 92%;
+  }
+  .column:nth-child(odd){ 
+    background-color: #EFF0EB;
+  }
+  .divider{
+    display: none;
+  }
+  .head{
+    display: block;
   }
 }
 </style>
