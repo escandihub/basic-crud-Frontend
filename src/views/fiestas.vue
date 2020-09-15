@@ -30,17 +30,31 @@
     <!-- end layout -->
     <div v-for="fiesta in partys" :key="fiesta.id" class="ml-3 mr-4">
       <div class="columns is-mobile">
-        <a class="column is-mobile is-9" @click="editFiesta(fiesta)">
+        <a class="column is-mobile" @click="editFiesta(fiesta)">
           <span class="panel-icon">
             <fa-icon icon="home" />
             <i class="fas fa-book" aria-hidden="true"></i>
           </span>
           {{ fiesta.name }}
         </a>
-        <div class="column">
-          <button class="button is-link is-light is-rounded" @click="lista(fiesta)">
-            <fa-icon icon="plus" />
-          </button>
+        <div class="column is-mobile">
+          <article class="message is-small">
+            <div class="message-header">
+              <p>We need ...</p>
+              <button class="delete is-small" aria-label="delete"></button>
+            </div>
+            <div class="message-body">
+              <ul>
+                <li v-for="thing in fiesta.things" :key="thing.id">
+                  {{thing.name}} - {{thing.amount}}
+                </li>
+              </ul>
+              <button class="button is-link is-light is-rounded is-pulled-right" @click="lista(fiesta)">
+                <fa-icon icon="plus" />
+              </button>
+            </div>
+            <hr>
+          </article>
         </div>
       </div>
     </div>
