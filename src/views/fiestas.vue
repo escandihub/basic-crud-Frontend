@@ -10,7 +10,7 @@
     <div class="columns mt-1">
       <div class="column is-three-quarters">
         <p class="control has-icons-left">
-          <input class="input is-primary" type="text" placeholder="Buscar" />
+          <input class="input is-primary" type="text" placeholder="Buscar" v-on:keyup="searchParty($event.target.value)"/>
           <span class="icon is-left">
             <i class="fas fa-search" aria-hidden="true"></i>
           </span>
@@ -28,7 +28,7 @@
       </div>
     </div>
     <!-- end layout -->
-    <div v-for="fiesta in partys" :key="fiesta.id" class="ml-3 mr-4">
+    <div v-for="fiesta in this.newResult  ? this.foundParties : this.partys" :key="fiesta.id" class="ml-3 mr-4">
       <div class="columns is-mobile">
         <a class="column is-mobile" >
           <article class="message is-small is-primary">
@@ -87,6 +87,7 @@ export default {
       editShow: false,
       verModalThings: false,
       propFiesta: "",
+      newResult:false
     };
   },
   components: {
@@ -99,6 +100,9 @@ export default {
     partys() {
       return this.$store.getters.fiestas;
     },
+    foundParties(){
+      return this.$store.getters.searchedParties;
+    }
   },
   created() {
     this.$store.dispatch("fetch_party");
@@ -124,6 +128,14 @@ export default {
     },
     softDelete(){
       console.log("eliminado soft");
+    },
+    searchParty(query){
+      if(query.length > 0){
+        this.$store.dispatch('SEARCH_PARTY_STORE', query);
+        this.newResult = true;
+      }else{
+        this.newResult = false;
+      }
     }
   },
 };
