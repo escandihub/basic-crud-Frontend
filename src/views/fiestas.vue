@@ -30,16 +30,16 @@
     <!-- end layout -->
     <div v-for="fiesta in partys" :key="fiesta.id" class="ml-3 mr-4">
       <div class="columns is-mobile">
-        <a class="column is-mobile" @click="editFiesta(fiesta)">
+        <a class="column is-mobile" >
           <article class="message is-small is-primary">
             <div class="message-header">
               <span class="panel-icon">
                 <fa-icon icon="home" /><i class="fas fa-book" aria-hidden="true"></i>
               </span>
               <p>{{ fiesta.name }}</p>
-              <button class="delete is-small" aria-label="delete"></button>
+              <button class="delete is-small" aria-label="delete" @click="softDelete"></button>
             </div>
-            <div class="message-body">
+            <div class="message-body" @click="editFiesta(fiesta)">
               {{fiesta.objective}}  - {{fiesta.date}}
               <br>
               <small>Maximo de invidatos: {{fiesta.number_guests}}</small>
@@ -121,6 +121,9 @@ export default {
     lista(f){
       this.propFiesta = f
       this.verModalThings = true
+    },
+    softDelete(){
+      console.log("eliminado soft");
     }
   },
 };
