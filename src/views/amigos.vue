@@ -31,7 +31,16 @@
         {{ amigo.phone }}
       </div>
       <div class="column">
-        <button class="delete is-small" aria-label="delete" @click="deleteFriend(amigo)"></button>
+        <div class="select" v-if="!amigo.party_id">
+          <select name="partys" id="partys" @change="enableInvite(amigo)">
+            <option value="">Parties?</option>
+            <option value="" v-for="party in parties" :key="party.id">
+              {{party.name}}
+            </option>
+          </select>
+        </div>
+        <button v-if="isSelected && selectedFriend.id == amigo.id" class="button is-success" @click="inviteFriend(amigo)">Invite</button>
+        <button v-if="!isSelected" class="button is-danger" @click="deleteFriend(amigo)">x</button>
       </div>
       <p class="divider">________________________________________________________</p>
     </div>
@@ -40,13 +49,34 @@
 
 <script>
 export default {
+  data: () => {
+    return {
+      selectedParty: null,
+      isSelected: false,
+      selectedFriend: null
+    };
+  },
   name: "amigos",
   computed: {
     amigos() {
       return this.$store.getters.getterAmigos;
     },
+    parties() {
+      return this.$store.getters.fiestas;
+    },
+  },render() {
+    this.$store.dispatch("fetch_party");
   },
   methods: {
+    enableInvite(friend){
+      this.selectedFriend = friend;
+      return this.isSelected = true;
+    },
+    inviteFriend(friend){
+      // this.$store.dispatch('UPDATE_FRIEND', id , data);
+      this.selectedFriend = null;
+      this.isSelected = false;
+    },
     deleteFriend(id){
       this.$store.dispatch('DELETE_FRIEND', id).then(response => {
         console.log(response);
