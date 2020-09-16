@@ -17,7 +17,11 @@
         We should?
       </div>
     </div>
-    <div class="columns is-center is-desktop" v-for="amigo in amigos" :key="amigo.id">
+    <div
+      class="columns is-center is-desktop"
+      v-for="amigo in amigos"
+      :key="amigo.id"
+    >
       <div class="column">
         {{ amigo.name }}
       </div>
@@ -32,17 +36,31 @@
       </div>
       <div class="column">
         <div class="select" v-if="!amigo.party_id">
-          <select name="partys" id="partys" @change="enableInvite(amigo)">
+          <select name="partys" id="partys" @change="enableInvite(amigo, $event)">
             <option value="">Parties?</option>
-            <option value="" v-for="party in parties" :key="party.id">
-              {{party.name}}
+            <option :value="party.id" v-for="party in parties" :key="party.id">
+              {{ party.name }}
             </option>
           </select>
         </div>
-        <button v-if="isSelected && selectedFriend.id == amigo.id" class="button is-success" @click="inviteFriend(amigo)">Invite</button>
-        <button v-if="!isSelected" class="button is-danger" @click="deleteFriend(amigo)">x</button>
+        <button
+          v-if="isSelected && selectedFriend.id == amigo.id"
+          class="button is-success"
+          @click="inviteFriend(amigo)"
+        >
+          Invite
+        </button>
+        <button
+          v-if="!isSelected"
+          class="button is-danger"
+          @click="deleteFriend(amigo)"
+        >
+          x
+        </button>
       </div>
-      <p class="divider">________________________________________________________</p>
+      <p class="divider">
+        ________________________________________________________
+      </p>
     </div>
   </div>
 </template>
@@ -53,7 +71,8 @@ export default {
     return {
       selectedParty: null,
       isSelected: false,
-      selectedFriend: null
+      selectedFriend: null,
+      fiestaIdentificado: 0,
     };
   },
   name: "amigos",
@@ -64,31 +83,36 @@ export default {
     parties() {
       return this.$store.getters.fiestas;
     },
-  },render() {
-    this.$store.dispatch("fetch_party");
   },
+  render() {},
   methods: {
-    enableInvite(friend){
+    enableInvite(friend, fiesta) {
+      this.fiestaIdentificado = fiesta.target.value
       this.selectedFriend = friend;
-      return this.isSelected = true;
+      return (this.isSelected = true);
     },
-    inviteFriend(friend){
-      // this.$store.dispatch('UPDATE_FRIEND', id , data);
+    inviteFriend(friend) {
+      friend.party_id = this.fiestaIdentificado
+      this.$store.dispatch("UPDATE_FRIEND_PARTY", friend);
       this.selectedFriend = null;
       this.isSelected = false;
     },
-    deleteFriend(id){
-      this.$store.dispatch('DELETE_FRIEND', id).then(response => {
-        console.log(response);
-        return this.$store.getters.getterAmigos;
-      }).catch(error =>{
-        console.log(error);
-      });
-    }
+    deleteFriend(id) {
+      this.$store
+        .dispatch("DELETE_FRIEND", id)
+        .then((response) => {
+          console.log(response);
+          return this.$store.getters.getterAmigos;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   created() {
-      this.$store.dispatch('FETCH_AMIGOS')
-    }
+    this.$store.dispatch("fetch_party");
+    this.$store.dispatch("FETCH_AMIGOS");
+  },
 };
 </script>
 
@@ -99,7 +123,7 @@ export default {
   /* display: flex; */
   justify-content: center;
 }
-.head{
+.head {
   display: none;
 }
 /* mobile first*/
@@ -107,10 +131,10 @@ export default {
   padding: 4%;
   width: 92%;
 }
-.column:nth-child(odd){
+.column:nth-child(odd) {
   background-color: whitesmoke;
 }
-.divider{
+.divider {
   display: block;
   color: purple !important;
   overflow: hidden;
@@ -121,13 +145,13 @@ export default {
     padding: 1%;
     width: 92%;
   }
-  .column:nth-child(odd){ 
-    background-color: #EFF0EB;
+  .column:nth-child(odd) {
+    background-color: #eff0eb;
   }
-  .divider{
+  .divider {
     display: none;
   }
-  .head{
+  .head {
     display: block;
   }
 }

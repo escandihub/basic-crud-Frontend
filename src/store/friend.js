@@ -1,5 +1,4 @@
-import { getAmigos } from '@/services/amigos.js';
-import { deleteFriendService } from '../services/amigos';
+import { getAmigos, deleteFriendService, updateFriendService } from '@/services/amigos.js';
 export default {
   state: {
     amigos: []
@@ -15,7 +14,7 @@ export default {
       state.amigos = payload
     },
     deleteFriend: (state, deletedFriend) => {
-      state.amigos = state.amigos.filter( friend => friend.id != deletedFriend.id);
+      state.amigos = state.amigos.filter(friend => friend.id != deletedFriend.id);
     },
   },
 
@@ -27,15 +26,22 @@ export default {
         console.log(err);
       });
     },
-    DELETE_FRIEND({ commit }, friend){
-      deleteFriendService(friend).then( res =>{
+    DELETE_FRIEND({ commit }, friend) {
+      deleteFriendService(friend).then(res => {
         console.log(res);
-        if(res.data.message){
+        if (res.data.message) {
           commit('deleteFriend', friend);
-        }else{
+        } else {
           console.log('Error al eliminar');
         }
-      }).catch( err => {
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+    UPDATE_FRIEND_PARTY({ commit }, friend) {
+      updateFriendService(friend).then(res => {
+        console.log(res);
+      }).catch(err => {
         console.log(err);
       });
     }

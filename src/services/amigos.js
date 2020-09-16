@@ -1,3 +1,4 @@
+import friend from "../store/friend";
 import base from "./base"
 
 export function getAmigos() {
@@ -29,3 +30,13 @@ export function deleteFriendService(friend){
   });
 }
 
+export function updateFriendService(friend){
+  console.log(friend);
+  return new Promise(( response, reject) => {
+    base().put(`/friends/${friend.id}`, friend).then( res => {
+      response(res)
+    }).catch( error => {
+      reject(error)
+    })
+  })
+}
