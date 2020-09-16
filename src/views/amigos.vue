@@ -35,13 +35,17 @@
         {{ amigo.phone }}
       </div>
       <div class="column">
-        <div class="select" v-if="!amigo.partyId">
+        <div class="select" v-if="amigo.party_id == null">
           <select name="partys" id="partys" @change="enableInvite(amigo, $event)">
             <option value="">Parties?</option>
             <option :value="party.id" v-for="party in parties" :key="party.id">
               {{ party.name }}
             </option>
           </select>
+        </div>
+        <div v-if="amigo.party_id && amigo.party">
+          <span class="tag is-primary"><b>{{amigo.party.name}}</b></span>
+          <span class="tag is-primary is-light">Invited</span>
         </div>
         <button
           v-if="isSelected && selectedFriend.id == amigo.id"
@@ -55,7 +59,7 @@
           class="button is-danger"
           @click="deleteFriend(amigo)"
         >
-          x
+          Delete
         </button>
       </div>
       <p class="divider">
@@ -69,7 +73,6 @@
 export default {
   data: () => {
     return {
-      selectedParty: null,
       isSelected: false,
       selectedFriend: null,
       fiestaIdentificado: 0,
@@ -92,8 +95,12 @@ export default {
       return (this.isSelected = true);
     },
     inviteFriend(friend) {
-      friend.party_id = this.fiestaIdentificado
-      this.$store.dispatch("UPDATE_FRIEND_PARTY", friend);
+      friend.party_id = this.fiestaIdentificado;
+      this.$store.dispatch("UPDATE_FRIEND_PARTY", friend).then(resp =>{
+        this.$store.dispatch("FETCH_AMIGOS");
+      }).catch(err=>{
+        console.log(err);
+      });
       this.selectedFriend = null;
       this.isSelected = false;
     },
@@ -141,8 +148,8 @@ export default {
 /* big screen */
 @media screen and (min-width: 960px) {
   #size {
-    padding: 1%;
-    width: 92%;
+    padding: 5%;
+    width: 100%;
   }
   .column:nth-child(odd) {
     background-color: #eff0eb;
