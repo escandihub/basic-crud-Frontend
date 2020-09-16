@@ -35,7 +35,7 @@
         {{ amigo.phone }}
       </div>
       <div class="column">
-        <div class="select" v-if="!amigo.party_id">
+        <div class="select" v-if="!amigo.partyId">
           <select name="partys" id="partys" @change="enableInvite(amigo, $event)">
             <option value="">Parties?</option>
             <option :value="party.id" v-for="party in parties" :key="party.id">
@@ -101,7 +101,6 @@ export default {
       this.$store
         .dispatch("DELETE_FRIEND", id)
         .then((response) => {
-          console.log(response);
           return this.$store.getters.getterAmigos;
         })
         .catch((error) => {

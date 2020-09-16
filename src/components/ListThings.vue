@@ -98,6 +98,7 @@ export default {
     },
     cerrarTio() {
       this.$emit("closeThings", false);
+      this.$store.dispatch("fetch_party");
     },
   },
 };
