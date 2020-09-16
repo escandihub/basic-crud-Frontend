@@ -13,6 +13,9 @@
       <div class="column">
         Phone
       </div>
+      <div class="column">
+        We should?
+      </div>
     </div>
     <div class="columns is-center is-desktop" v-for="amigo in amigos" :key="amigo.id">
       <div class="column">
@@ -27,6 +30,9 @@
       <div class="column">
         {{ amigo.phone }}
       </div>
+      <div class="column">
+        <button class="delete is-small" aria-label="delete" @click="deleteFriend(amigo)"></button>
+      </div>
       <p class="divider">________________________________________________________</p>
     </div>
   </div>
@@ -40,7 +46,17 @@ export default {
       return this.$store.getters.getterAmigos;
     },
   },
-    created() {
+  methods: {
+    deleteFriend(id){
+      this.$store.dispatch('DELETE_FRIEND', id).then(response => {
+        console.log(response);
+        return this.$store.getters.getterAmigos;
+      }).catch(error =>{
+        console.log(error);
+      });
+    }
+  },
+  created() {
       this.$store.dispatch('FETCH_AMIGOS')
     }
 };

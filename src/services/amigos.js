@@ -6,17 +6,26 @@ export function getAmigos() {
       response(res.data)
     }).catch(error => {
       reject(error)
-    })
-  })
+    });
+  });
 }
 
 export function nuevoAmigos(amigo) {
   return new Promise((response, reject) => {
     base().post('/friends', amigo).then(res => {
-      response(res)
+      response(res);
     }).catch(error => {
-      reject(error)
-    })
-  })
+      reject(error);
+    });
+  });
+}
+export function deleteFriendService(friend){
+  return new Promise( ( response, reject ) => {
+    base().delete('/friends/'+friend.id).then( res => {
+      response(res);
+    }).catch( error => {
+      reject(error);
+    });
+  });
 }
 
