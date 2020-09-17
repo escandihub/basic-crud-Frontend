@@ -1,24 +1,32 @@
 <template>
-  <div class="notification is-success" v-show="false">
+  <div class="notification is-success" v-if="notif.isVisible">
     <button class="delete"></button>
-    {{ 'notif.mensaje' }}
+    {{ notif.mensaje }}
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapActions } from "vuex";
 export default {
-  created() {
-    setTimeout(() => {
-       
-    })
+  data() {
+    return {
+      timeout: null,
+    };
   },
-   computed: {
-     notif(){
-       
-       return this.$store.getters.notificar
-     }
-   }
+  beforeUpdate() {
+    this.timeout = setTimeout(() => {
+      this.deleteNotification();
+    }, 3000);
+  },
+  beforeDestroy() {
+    clearTimeout(this.timeout);
+  },
+  computed: {
+    notif() {
+      return this.$store.getters.notificar;
+    },
+  },
+  methods: mapActions(["deleteNotification"]),
 };
 </script>
 
