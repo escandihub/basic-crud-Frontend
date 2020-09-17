@@ -35,15 +35,21 @@ export default {
     NEW_PARTY({ rootState, commit }, playload) {
       newFiestas(playload).then(res =>
         commit('ADD_PARTY', playload),
-        rootState.notify.noti.isVisible = true,
-        rootState.notify.noti.mensaje = "Nueva Fiesta"
+        rootState.notify.noti = {
+          isVisible: true,
+          mensaje: 'Nueva fiesta agregada 😈'
+        }
       )
         .catch(err => console.log(err))
     },
-    EDIT_FIESTA(context, data) {
+    EDIT_FIESTA({rootState}, data) {
       return new Promise((resolve, reject) => {
         EditFiestas(data, data.id).then(res => {
-          resolve(res)
+          resolve(res),
+          rootState.notify.noti = {
+            isVisible: true,
+            mensaje: 'Se ha actualizado la fiesta, 👍🏻'
+          }
         }).catch(err => {
           reject(err)
         }

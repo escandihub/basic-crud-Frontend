@@ -26,11 +26,15 @@ export default {
         console.log(err);
       });
     },
-    DELETE_FRIEND({ commit }, friend) {
+    DELETE_FRIEND({ rootState, commit }, friend) {
       deleteFriendService(friend).then(res => {
         console.log(res);
         if (res.data.message) {
           commit('deleteFriend', friend);
+          rootState.notify.noti = {
+            isVisible: true,
+            mensaje: 'Se ha eliminado este amigo, 😢'
+          }
         } else {
           console.log('Error al eliminar');
         }
@@ -38,9 +42,12 @@ export default {
         console.log(err);
       });
     },
-    UPDATE_FRIEND_PARTY({ commit }, friend) {
+    UPDATE_FRIEND_PARTY({ rootState, commit }, friend) {
       updateFriendService(friend).then(res => {
-        console.log(res);
+        rootState.notify.noti = {
+          isVisible: true,
+          mensaje: 'Se ha suscrito a una fiesta 🥳'
+        }
       }).catch(err => {
         console.log(err);
       });
