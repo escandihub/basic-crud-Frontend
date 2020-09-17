@@ -12,16 +12,19 @@ export default {
   },
   mutations: {
     SET_NOTIFY: function (state, value) {
-      state.noti = value
+      state.noti.isVisible = value
     },
     PUSH_NOTIFICATION: function(state, notification){
       state.noti = notification 
-    }
+    },
   },
-  action: {
+  actions: {
     addNotification: ({commit}, notification) => {
       console.log(notification);
       commit('PUSH_NOTIFICATION', notification)
+    },
+    deleteNotification: ({commit}) => {
+      commit('SET_NOTIFY', false)
     }
   }
 }
