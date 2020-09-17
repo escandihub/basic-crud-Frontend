@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+
 export default () => {
   let instance = axios.create({
     baseURL: 'http://basic-crud.test/api/',
