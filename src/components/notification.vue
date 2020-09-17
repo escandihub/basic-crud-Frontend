@@ -1,6 +1,6 @@
 <template>
   <div class="notification is-success" v-if="notif.isVisible">
-    <button class="delete"></button>
+    <button class="delete" @click="deleteNotification"></button>
     {{ notif.mensaje }}
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
   beforeUpdate() {
     this.timeout = setTimeout(() => {
       this.deleteNotification();
-    }, 3000);
+    }, 4000);
   },
   beforeDestroy() {
     clearTimeout(this.timeout);
