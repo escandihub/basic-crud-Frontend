@@ -22,27 +22,23 @@ export default {
     ADD_PARTY: function (state, party) {
       state.partys.push(party);
     },
-    SEARCH_PARTY: function ( state , query){
-      let result = state.partys.filter( party => party.name.includes(query));
-      state.searchedParties = result.length > 0 ? result : [] ;
-    }
+    SEARCH_PARTY: function (state, query) {
+      let result = state.partys.filter(party => party.name.includes(query));
+      state.searchedParties = result.length > 0 ? result : [];
+    },
   },
   actions: {
     fetch_party({ commit }) {
       fiestas().then(fiestas => commit('SET_PARTY', fiestas.data)).catch(err => console.log(err));
     },
 
-    NEW_PARTY({ dispatch, commit }, playload) {
+    NEW_PARTY({ rootState, commit }, playload) {
       newFiestas(playload).then(res =>
-        commit('ADD_PARTY', playload))
+        commit('ADD_PARTY', playload),
+        rootState.notify.noti.isVisible = true,
+        rootState.notify.noti.mensaje = "Nueva Fiesta"
+      )
         .catch(err => console.log(err))
-    },
-
-    NUEVA_FIESTA(context) {
-      context.dispatch('addNotification', {
-        isVisible: true,
-        mensaje: 'Se guardo Correctamente'
-      }, { root: true })
     },
     EDIT_FIESTA(context, data) {
       return new Promise((resolve, reject) => {
@@ -54,8 +50,8 @@ export default {
         )
       })
     },
-    SEARCH_PARTY_STORE({commit},query){
-      if(query.length > 0){
+    SEARCH_PARTY_STORE({ commit }, query) {
+      if (query.length > 0) {
         commit('SEARCH_PARTY', query); //haciendo busquda
       }
     }
